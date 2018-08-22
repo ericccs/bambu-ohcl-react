@@ -1,11 +1,11 @@
 import * as React from 'react';
-import AppCard from './app-card';
+import AppDashboard from './app-dashboard';
 
 class App extends React.Component {
     public render() {
         return (
             <div>
-                <AppCard />
+                <AppDashboard />
             </div>
         );
     }
