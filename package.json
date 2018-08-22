@@ -2,9 +2,10 @@
   "name": "bambu-ohcl-react",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "react-scripts-ts start"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,9 @@
   "author": "erc",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^10.7.1",
+    "@types/react": "^16.4.11",
+    "@types/react-dom": "^16.0.7",
     "typescript": "^3.0.1"
   },
   "dependencies": {
