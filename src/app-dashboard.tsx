@@ -1,9 +1,18 @@
 import * as React from 'react';
 import './app-dashboard.css';
 import AppGraphCanvas from './app-graph-canvas';
+import { IAppStateType } from './app-types';
 import AppSymbolList from './app-symbol-list';
 
-class AppDashboard extends React.Component {
+class AppDashboard extends React.Component<{}, IAppStateType> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            symbols: ["MSFT", "AAPL", "INTC", "NFLX", "ORCL", "CMCSA", "GOOG", "LUV", "HOG", "GOOGL", "AMZN"],
+            timeSeriesPayload: {}
+        }
+    }
+
     public render() {
         return (
             <div className="card-container">
@@ -12,7 +21,7 @@ class AppDashboard extends React.Component {
                 </div>
                 <div className="card-body">
                     <div className="card-sidebar">
-                        <AppSymbolList />
+                        <AppSymbolList symbols={this.state.symbols} />
                     </div>
                     <div className="card-content">
                         <AppGraphCanvas />
@@ -23,6 +32,17 @@ class AppDashboard extends React.Component {
                 </div>
             </div>
         );
+    }
+
+
+    public componentDidMount() {
+        fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo")
+            .then(resp => {
+                return resp.json();
+            })
+            .then(payload => {
+                console.log(JSON.stringify(payload));
+            });
     }
 }
 

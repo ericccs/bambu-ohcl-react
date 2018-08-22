@@ -3,11 +3,15 @@
         "tslint:recommended", "tslint-react", "tslint-config-prettier"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "no-console": [false, "log", "error", "warning"],
+        "ordered-imports": false
+    },
     "rulesDirectory": [],
     "linterOptions": {
         "exclude": [
             "node_modules/**/*.ts",
+            "node_modules/**/*.tsx",
             "src/**/*.css"
         ]
     }
