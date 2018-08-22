@@ -3,3 +3,7 @@
     height: 600px;
 }
 
+.line {
+    stroke:rgb(255,0,0);
+    stroke-width: 2px;
+}
