@@ -41,13 +41,26 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
     }
 
     public componentDidMount() {
-        this.updatePayload(this.state.selectedSymbol ? this.state.selectedSymbol : this.state.symbols[0]);
+        console.log("cookies: ", document.cookie);
+        let symbol: string = "";
+        if(!this.state.selectedSymbol) {
+            const symbols: string[] = document.cookie.split(";")
+                .filter(cookie => cookie.indexOf("symbol=") >= 0)
+                .map(cookie => cookie.replace("symbol=", ""));
+            symbol = symbols ? symbols[0] : "";
+            console.log("load symbol from cookies: ", symbol);
+        }
+        symbol = !!symbol ? symbol : this.state.symbols[0];
+        this.updatePayload(symbol);
+        this.setState({selectedSymbol: symbol});
     }
 
-    public handleSymbolChanged = (event: React.SyntheticEvent<HTMLElement>): void => {
-        console.log("click: ", event.currentTarget.innerText);
-        this.setState({selectedSymbol: event.currentTarget.innerText});
-        this.updatePayload(event.currentTarget.innerText);
+    public handleSymbolChanged = (event: React.MouseEvent<HTMLLIElement>): void => {
+        const targetData: string = event.currentTarget.innerText;
+        console.log("handleSymbolChanged: ", targetData);
+        this.setState({selectedSymbol: targetData});
+        this.updatePayload(targetData);
+        document.cookie = `symbol=${targetData};`;
     }
 
     private updatePayload(symbol : string) : void {
@@ -86,7 +99,10 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
                 };
                 this.setState({ timeSeriesData: data });
             })
-            .catch(error => console.log("error: ", error));
+            .catch(error => {
+                console.log("error: ", error);
+                this.setState({ statusMessage: "error: " + error });
+            });
     }
 
 }

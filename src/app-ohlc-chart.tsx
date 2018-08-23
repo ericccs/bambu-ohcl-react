@@ -12,34 +12,18 @@ import {
 
 class AppOhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartState> {
 
-    // constructor(props: IAppOhlcChartProps) {
-    //     super(props);
-    // }
-
     public render() {
         const scale: IPriceXYScale = this.calculatePriceScale(this.props.timeSeriesData);
         const prices: IPriceItem[] = this.props.timeSeriesData.timeSeriesList;
-        // const prices: IPriceItem[] = [{
-        //     timeKey: "2018-08-01",
-        //     open: 100,
-        //     high: 120,
-        //     low: 50,
-        //     close: 70,
-        //     volume: 100000
-        // }, {
-        //     timeKey: "2018-08-01",
-        //     open: 170,
-        //     high: 200,
-        //     low: 150,
-        //     close: 180,
-        //     volume: 100000
-        // }];
 
         const ohlcChart = prices.map((price, idx) => OhlcSymbol(price, scale, idx));
         return (
-            <svg className="graph-canvas-container">
-                {ohlcChart}
+            <svg style={chartCanvasStyle}>
+                <g>
+                    {ohlcChart}
+                </g>
 
+                { AxisDraw(scale) }
             </svg>
         );
     }
@@ -66,22 +50,23 @@ class AppOhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartStat
                 Array.prototype.push.apply(acc, priceArr);
                 return acc;
             }, []);
-        // console.log("priceSample: ", priceSample);
 
-        const minPrice: number = Math.floor(Math.min(...priceSample));
-        const maxPrice: number = Math.floor(Math.max(...priceSample)) + 1;
+        const minValue: number = Math.floor(Math.min(...priceSample));
+        const maxValue: number = Math.floor(Math.max(...priceSample)) + 1;
+        const rangeValue: number = maxValue - minValue;
 
-        const range: number = maxPrice - minPrice;
-
-        console.log("minPrice: ", minPrice);
-        console.log("maxPrice: ", maxPrice);
-        console.log("range: ", range);
+        console.log("minPrice: ", minValue);
+        console.log("maxPrice: ", maxValue);
+        console.log("rangeValue: ", rangeValue);
 
         const scale: IPriceXYScale = {
             originX: 100,
-            originY: 500,
+            originY: (500+minValue),
             scaleX: 10,
-            scaleY: 20
+            scaleY: (500/rangeValue),
+            maxPrice: maxValue,
+            minPrice: minValue,
+            rangeVal: rangeValue
         };
         return scale;
     }
@@ -89,6 +74,10 @@ class AppOhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartStat
 
 export default AppOhlcChart;
 
+const chartCanvasStyle : any = {
+    width: '800px',
+    height: '600px'
+}
 
 const polyLineRedStyle: any = {
     fill: 'none',
@@ -103,7 +92,7 @@ const polyLineGreenStyle: any = {
 };
 
 function OhlcSymbol(price: IPriceItem, scale: IPriceXYScale, idx: number) {
-    const xyOrigin: IPoint = xy(scale.originX + (idx * scale.scaleX), scale.originY-((price.high-87)*scale.scaleY));
+    const xyOrigin: IPoint = xy(scale.originX + (idx * scale.scaleX), scale.originY-((price.high-scale.minPrice)*scale.scaleY));
     const point: IPoint[] = [ xyOrigin,
         xy(xyOrigin.x, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
         xy(xyOrigin.x-5, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
@@ -114,11 +103,6 @@ function OhlcSymbol(price: IPriceItem, scale: IPriceXYScale, idx: number) {
         xy(xyOrigin.x, xyOrigin.y + ((price.high - price.low)*scale.scaleY)),
     ];
     const pointCalc = point.filter(p => !!p.x && !!p.y)
-        // .map(p => {
-        //     p.x = !!p.x ? p.x: 0;
-        //     p.y = !!p.y ? p.y : 0;
-        //     return p;
-        // })
         .map(p => `${p.x},${p.y}`)
         .join(" ");
     return (<polyline key={idx} points={pointCalc} style={ price.open < price.close ? polyLineGreenStyle : polyLineRedStyle} />);
@@ -128,6 +112,11 @@ function xy(px: number = 0, py: number = 0): IPoint {
     return {x: px, y: py};
 }
 
-function PolylineChart() {
-    return (<polyline points="200,92.43 250,300.123" style={polyLineGreenStyle} />);
+function AxisDraw(scale: IPriceXYScale) {
+    return (
+        <g>
+            <path stroke="gray" d="M 90 550 H 800 Z" />
+            <path stroke="gray" d="M 90 50 V 550 Z" />
+        </g>
+    );
 }

@@ -10,7 +10,8 @@ export interface IAppStateType {
 export interface IAppSymbolListProps {
     symbols: string[];
     selectedSymbol: string;
-    onSymbolChanged: (event: React.SyntheticEvent<HTMLElement>) => void;
+    // onSymbolChanged: (symbol: string, event?: React.SyntheticEvent<HTMLElement>) => void;
+    onSymbolChanged: (event: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 export interface IAppOhlcChartState {
@@ -74,6 +75,9 @@ export interface IPriceXYScale {
     originY: number;
     scaleX: number;
     scaleY: number;
+    minPrice: number;
+    maxPrice: number;
+    rangeVal: number;
 }
 
 export interface IPoint {
