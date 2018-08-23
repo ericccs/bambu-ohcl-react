@@ -11,7 +11,8 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
         this.state = {
             symbols: ["MSFT", "AAPL", "INTC", "NFLX", "ORCL", "CMCSA", "GOOG", "LUV", "HOG", "GOOGL", "AMZN"],
             selectedSymbol: undefined,
-            timeSeriesData: undefined
+            timeSeriesData: undefined,
+            statusMessage: "Dashboard"
         }
     }
 
@@ -20,7 +21,7 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
         return (
             <div className="card-container">
                 <div className="card-header">
-                    Dashboard
+                    {this.state.statusMessage}
                 </div>
                 <div className="card-body">
                     <div className="card-sidebar">
@@ -84,7 +85,8 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
                     timeSeriesList: timeSeriesPriceList
                 };
                 this.setState({ timeSeriesData: data });
-            });
+            })
+            .catch(error => console.log("error: ", error));
     }
 
 }

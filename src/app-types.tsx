@@ -4,6 +4,7 @@ export interface IAppStateType {
     symbols: string[];
     selectedSymbol?: string;
     timeSeriesData?: ITimeSeriesData;
+    statusMessage?: string;
 }
 
 export interface IAppSymbolListProps {
