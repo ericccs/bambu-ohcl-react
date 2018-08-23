@@ -5,9 +5,10 @@
 .card-header {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
+    color: white;
+    background-color: maroon;
     border-bottom: 1px solid rgba(0,0,0,.125);
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    border-radius: calc(.45rem - 1px) calc(.45rem - 1px) 0 0;
 }
 
 .card-body {
@@ -26,7 +27,8 @@
 
 .card-footer {
     padding: .75rem 1.25rem;
-    background-color: rgba(0,0,0,.03);
+    color: white;
+    background-color: black;
     border-top: 1px solid rgba(0,0,0,.125);
-    border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+    border-radius: 0 0 calc(.45rem - 1px) calc(.45rem - 1px);
 }

@@ -8,13 +8,18 @@ class AppSymbolList extends React.Component<IAppSymbolListProps> {
     // }
 
     public render() {
-        const sidebarList : any = this.props.symbols.map((symbol) => <li className="list-group-item" key={symbol}>{symbol}</li>);
+        const sidebarList : any = this.props.symbols.map(symbol => {
+                const classStyle = this.props.selectedSymbol === symbol ? "list-group-item active" : "list-group-item";
+                return (<li key={symbol} className={classStyle} onClick={this.props.onSymbolChanged}>{symbol}</li>);
+            });
         return (
             <ul className="list-group">
                 {sidebarList}
             </ul>
         );
     }
+
+
 
 }
 

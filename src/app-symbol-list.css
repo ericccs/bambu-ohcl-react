@@ -19,3 +19,12 @@
     z-index: 1;
     text-decoration: none;
 }
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+
