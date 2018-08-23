@@ -1,13 +1,9 @@
 # bambu-ohcl-react
 
+OHCL Stock Pricing Chart
 
-### Init steps
-
-    npm init
-    git init
-    tsc -init
-    tslint --init
-
+Language: typescript
+Library: React
 
 ### Install
 
