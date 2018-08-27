@@ -1,9 +1,9 @@
 import * as React from 'react';
 import './app-dashboard.css';
-import AppOhlcChart from './chart/ohlc-chart';
-import AppSymbolList from './app-symbol-list';
-import {IAppStateType, ITimeSeriesPayload, ITimeSeriesData, IMetadata, IPriceItem} from '../app-types';
-import {ALPHA_VANTAGE_PARAM_FUNCTION, ALPHA_VANTAGE_URL} from '../app-config';
+import OhlcChart from './chart/ohlc-chart';
+import AppSidebar from './app-sidebar';
+import { IAppStateType, ITimeSeriesPayload, ITimeSeriesData, IMetadata, IPriceItem } from '../app-types';
+import { ALPHA_VANTAGE_PARAM_FUNCTION, ALPHA_VANTAGE_URL } from '../app-config';
 
 class AppDashboard extends React.Component<{}, IAppStateType> {
     constructor(props: any) {
@@ -17,7 +17,7 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
     }
 
     public render() {
-        const ohclChart = !!this.state.timeSeriesData ? (<AppOhlcChart timeSeriesData={ this.state.timeSeriesData } />) : "";
+        const ohclChart = !!this.state.timeSeriesData ? (<OhlcChart timeSeriesData={ this.state.timeSeriesData } />) : "";
         return (
             <div className="card-container">
                 <div className="card-header">
@@ -25,9 +25,9 @@ class AppDashboard extends React.Component<{}, IAppStateType> {
                 </div>
                 <div className="card-body">
                     <div className="card-sidebar">
-                        <AppSymbolList symbols={this.state.symbols}
-                                       selectedSymbol={this.state.selectedSymbol ? this.state.selectedSymbol : this.state.symbols[0]}
-                                       onSymbolChanged={this.handleSymbolChanged} />
+                        <AppSidebar symbols={this.state.symbols}
+                                    selectedSymbol={this.state.selectedSymbol ? this.state.selectedSymbol : this.state.symbols[0]}
+                                    onSymbolChanged={this.handleSymbolChanged} />
                     </div>
                     <div className="card-content">
                         {ohclChart}

@@ -7,19 +7,18 @@ export interface IAppStateType {
     statusMessage?: string;
 }
 
-export interface IAppSymbolListProps {
+export interface IAppSidebarProps {
     symbols: string[];
     selectedSymbol: string;
-    // onSymbolChanged: (symbol: string, event?: React.SyntheticEvent<HTMLElement>) => void;
     onSymbolChanged: (event: React.MouseEvent<HTMLLIElement>) => void;
 }
 
-export interface IAppOhlcChartState {
+export interface IOhlcChartState {
     xAxis?: string[];
     yAxis?: string[];
 }
 
-export interface IAppOhlcChartProps {
+export interface IOhlcChartProps {
     timeSeriesData: ITimeSeriesData;
 }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './ohlc-chart.css';
 import {
-    IAppOhlcChartProps,
-    IAppOhlcChartState,
+    IOhlcChartProps,
+    IOhlcChartState,
     IPoint,
     ITimeSeriesData,
     IPriceItem,
@@ -10,7 +10,7 @@ import {
 } from "../../app-types";
 
 
-class OhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartState> {
+class OhlcChart extends React.Component<IOhlcChartProps, IOhlcChartState> {
 
     public render() {
         const scale: IPriceXYScale = this.calculatePriceScale(this.props.timeSeriesData);
@@ -92,15 +92,15 @@ const polyLineGreenStyle: any = {
 };
 
 function OhlcSymbol(price: IPriceItem, scale: IPriceXYScale, idx: number) {
-    const xyOrigin: IPoint = xy(scale.originX + (idx * scale.scaleX), scale.originY-((price.high-scale.minPrice)*scale.scaleY));
+    const xyOrigin: IPoint = xyPoint(scale.originX + (idx * scale.scaleX), scale.originY-((price.high-scale.minPrice)*scale.scaleY));
     const point: IPoint[] = [ xyOrigin,
-        xy(xyOrigin.x, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
-        xy(xyOrigin.x-5, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
-        xy(xyOrigin.x, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
-        xy(xyOrigin.x, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
-        xy(xyOrigin.x+5, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
-        xy(xyOrigin.x, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
-        xy(xyOrigin.x, xyOrigin.y + ((price.high - price.low)*scale.scaleY)),
+        xyPoint(xyOrigin.x, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
+        xyPoint(xyOrigin.x-5, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
+        xyPoint(xyOrigin.x, xyOrigin.y + ((price.high - price.open)*scale.scaleY)),
+        xyPoint(xyOrigin.x, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
+        xyPoint(xyOrigin.x+5, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
+        xyPoint(xyOrigin.x, xyOrigin.y + ((price.high - price.close)*scale.scaleY)),
+        xyPoint(xyOrigin.x, xyOrigin.y + ((price.high - price.low)*scale.scaleY)),
     ];
     const pointCalc = point.filter(p => !!p.x && !!p.y)
         .map(p => `${p.x},${p.y}`)
@@ -108,7 +108,7 @@ function OhlcSymbol(price: IPriceItem, scale: IPriceXYScale, idx: number) {
     return (<polyline key={idx} points={pointCalc} style={ price.open < price.close ? polyLineGreenStyle : polyLineRedStyle} />);
 }
 
-function xy(px: number = 0, py: number = 0): IPoint {
+function xyPoint(px: number = 0, py: number = 0): IPoint {
     return {x: px, y: py};
 }
 
