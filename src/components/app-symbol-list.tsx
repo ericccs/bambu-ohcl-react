@@ -1,12 +1,9 @@
 import * as React from 'react';
 import './app-symbol-list.css';
-import { IAppSymbolListProps } from './app-types';
+import { IAppSymbolListProps } from '../app-types';
 import EventEmitter = NodeJS.EventEmitter;
 
 class AppSymbolList extends React.Component<IAppSymbolListProps> {
-    // constructor(props: string[]) {
-    //     super(props);
-    // }
 
     public render() {
         const sidebarList : any = this.props.symbols.map(symbol => {

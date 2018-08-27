@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './app-ohlc-chart.css';
+import './ohlc-chart.css';
 import {
     IAppOhlcChartProps,
     IAppOhlcChartState,
@@ -7,10 +7,10 @@ import {
     ITimeSeriesData,
     IPriceItem,
     IPriceXYScale
-} from "./app-types";
+} from "../../app-types";
 
 
-class AppOhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartState> {
+class OhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartState> {
 
     public render() {
         const scale: IPriceXYScale = this.calculatePriceScale(this.props.timeSeriesData);
@@ -72,7 +72,7 @@ class AppOhlcChart extends React.Component<IAppOhlcChartProps, IAppOhlcChartStat
     }
 }
 
-export default AppOhlcChart;
+export default OhlcChart;
 
 const chartCanvasStyle : any = {
     width: '800px',

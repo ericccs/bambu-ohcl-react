@@ -1,9 +1,9 @@
 import * as React from 'react';
 import './app-dashboard.css';
-import AppOhlcChart from './app-ohlc-chart';
+import AppOhlcChart from './chart/ohlc-chart';
 import AppSymbolList from './app-symbol-list';
-import {IAppStateType, ITimeSeriesPayload, ITimeSeriesData, IMetadata, IPriceItem} from './app-types';
-import {ALPHA_VANTAGE_PARAM_FUNCTION, ALPHA_VANTAGE_URL} from './app-config';
+import {IAppStateType, ITimeSeriesPayload, ITimeSeriesData, IMetadata, IPriceItem} from '../app-types';
+import {ALPHA_VANTAGE_PARAM_FUNCTION, ALPHA_VANTAGE_URL} from '../app-config';
 
 class AppDashboard extends React.Component<{}, IAppStateType> {
     constructor(props: any) {
